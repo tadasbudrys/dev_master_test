@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{#{% block title %}Hello CartController!{% endblock %}#}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+
+    <h1>Cart</h1>
+    <ul class="thumbnails">
+
+        {% if empty is defined %}
+            <h5>Your shopping cart is empty.</h5>
+        {% endif %}
+        {% set cart = app.session.get('cart') %}
+
+
+        {% if products is defined %}
+
+
+            <ul class="thumbnails">
+                {% if app.session.flashbag.has('notice') %}
+
+                    <div class="flash-notice">
+
+                        {{app.session.flashbag.has('notice') }}
+
+                    </div>
+                {% endif %}
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Title</td>
+                            <td>Qntity</td>
+                            <td>Price</td>
+                            <td>Sub-total</td>
+                        </tr>
+
+                    </thead>
+                <tbody>
+
+                {% set myVal = 0 %}
+                {% for product in products %}
+                    <form action="{{ path('cart_update', { 'value': product.title, 'id': product.id,} )}}" method="post" name="quantity">
+                    <tr>
+                        <td><b>{{ product.title }}</b></td>
+                      <td class = "id"> id{{ product.id }}</td>
+{#                        <td>{{ cart[product.id]}}</td>#}
+                        <td><input class="quantity" name="item" value="{{ cart[product.id]}}"/></td>
+{#                        <td> q<input type="number" name="item" value="{{ cart[product.id]}}"/></td>#}
+                        <td>{{ product.price }}</td>
+                        <td>  {{ cart[product.id] * product.price   }}</td>
+                        {% set myVal = myVal + cart[product.id] * product.price %}
+                        <td> <a href="{{ path('cart_remove', {'id': product.id}) }}">Remove</a> </td>
+{#                        <a href="{{ path('cart_update', {'var': cart[product.id]}) }}">click</a>#}
+
+
+{#                        <a href="#"  data-direction = "up"> click</a>#}
+
+
+                        <td><button type="submit" class="button">Update Cart</button></td>
+                    </tr>
+                    </form>
+                {% endfor %}
+
+                </tbody>
+                </table>
+              <h1> Total: {{myVal }} </h1>
+
+
+        {% endif %}
+
+
+{#    <a href="{{ path('product_index') }}">Products</a>#}
+{% endblock %}
