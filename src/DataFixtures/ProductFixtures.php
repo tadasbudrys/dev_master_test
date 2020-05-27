@@ -13,19 +13,19 @@ class ProductFixtures extends Fixture
         $milk = (new Product())
             ->setTitle('Milk')
             ->setPrice('1.99')
-            ->setDescription('Tasty');
+            ->setDescription('Tasty Milk');
         $manager->persist($milk);
 
         $bread = (new Product())
             ->setTitle('Bread')
             ->setPrice('2.15')
-            ->setDescription('Tasty');
+            ->setDescription('Tasty Bread  ');
         $manager->persist($bread);
 
         $flour = (new Product())
             ->setTitle('Flour')
             ->setPrice('0.99')
-            ->setDescription('Tasty');
+            ->setDescription('Tasty Flour');
         $manager->persist($flour);
 
         $manager->flush();

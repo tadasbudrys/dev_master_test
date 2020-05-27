@@ -26,6 +26,11 @@ class Product
      */
     private $price;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $description;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,9 +59,15 @@ class Product
 
         return $this;
     }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
     public function setDescription(string $description): self
     {
-        $this->price = $description;
+        $this->description = $description;
 
         return $this;
     }
